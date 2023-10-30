@@ -1,9 +1,8 @@
 from flask import Flask, render_template
 import pickle
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-import sklearn
 import xgboost
 
 regressor = xgboost.XGBRegressor()
@@ -13,6 +12,7 @@ class MyForm(FlaskForm):
     a = StringField('A', validators=[DataRequired()])
     s = StringField('S', validators=[DataRequired()])
     n = StringField('N', validators=[DataRequired()])
+    submit = SubmitField('Predict')
 
 
 app = Flask(__name__)
@@ -21,9 +21,17 @@ filename = 'finalized_model.sav'
 regressor.load_model(f'model/{filename}')
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    form = MyForm()
+    if form.validate_on_submit():
+        v = float(form.v.data)
+        a = float(form.a.data)
+        s = float(form.s.data)
+        n = float(form.n.data)
+        result = regressor.predict([[v, a, s, n]])
+        return render_template('index.html', form=form, result=result)
+    return render_template('index.html', form=form, result=None)
 
 
 if __name__ == '__main__':
