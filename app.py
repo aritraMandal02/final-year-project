@@ -30,8 +30,8 @@ def index():
         s = float(form.s.data)
         n = float(form.n.data)
         result = regressor.predict([[v, a, s, n]])
-        return render_template('index.html', form=form, result=result)
-    return render_template('index.html', form=form, result=None)
+        return render_template('index.html', form=form, result=result, show=True)
+    return render_template('index.html', form=form, show=False)
 
 
 if __name__ == '__main__':
