@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="/">
+        {{ form.csrf_token }}
+        {{ form.v.label }} {{ form.v(size=20) }}
+        {{ form.a.label }} {{ form.a(size=20) }}
+        {{ form.s.label }} {{ form.s(size=20) }}
+        {{ form.n.label }} {{ form.n(size=20) }}
+        <input type="submit" value="Go">
+    </form>
+</body>
+</html>
