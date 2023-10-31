@@ -1,16 +1,24 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import SubmitField, FloatField, StringField
+from wtforms.validators import DataRequired, Regexp, ValidationError
 import xgboost
 
 regressor = xgboost.XGBRegressor()
 
+
+def check_float(form, field):
+    try:
+        float(field.data)
+    except ValueError:
+        raise ValidationError('Not a valid input.')
+
+
 class MyForm(FlaskForm):
-    v = StringField('V', validators=[DataRequired()])
-    a = StringField('A', validators=[DataRequired()])
-    s = StringField('S', validators=[DataRequired()])
-    n = StringField('N', validators=[DataRequired()])
+    v = StringField('V', validators=[DataRequired(), check_float])
+    a = StringField('A', validators=[DataRequired(), check_float])
+    s = StringField('S', validators=[DataRequired(), check_float])
+    n = StringField('N', validators=[DataRequired(), check_float])
     submit = SubmitField('Predict')
 
 

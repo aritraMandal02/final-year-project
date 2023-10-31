@@ -1,0 +1,19 @@
+{% macro make_form(form) %}
+<form class="mx-1" method="POST" action="/">
+  {{ form.csrf_token }} {% for field in form %}
+  {% if field.type in ['FloatField', 'StringField'] %}
+  <div class="input-group my-3">
+    {{ field.label(class='input-group-text') }} {{ field(size=20, class="form-control") }}
+  </div>
+  {% if field.errors %}
+  <ul class="errors">
+    {% for error in field.errors %}
+    <li style="color: red;">{{ error }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endif %}
+  {% endfor %} 
+  {{form.submit(class="btn btn-outline-primary")}}
+</form>
+{% endmacro %}
