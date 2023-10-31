@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, FloatField, StringField
+from wtforms import SubmitField, StringField
 from wtforms.validators import DataRequired, Regexp, ValidationError
 import xgboost
 
