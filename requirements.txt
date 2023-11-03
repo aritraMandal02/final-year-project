@@ -14,3 +14,4 @@ threadpoolctl
 Werkzeug
 WTForms
 xgboost
+gunicorn
