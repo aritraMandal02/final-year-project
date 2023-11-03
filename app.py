@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField
 from wtforms.validators import DataRequired, ValidationError
@@ -26,19 +26,24 @@ app = Flask(__name__)
 app.secret_key = 'A Secret Key'
 filename = 'finalized_model.sav'
 regressor.load_model(f'model/{filename}')
+show = False
+result = None
+v, a, s, n = None, None, None, None
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    form = MyForm()
+    global v, a, s, n, result, show
+    form = MyForm(v=v, a=a, s=s, n=n)
     if form.validate_on_submit():
-        v = float(form.v.data)
-        a = float(form.a.data)
-        s = float(form.s.data)
-        n = float(form.n.data)
-        result = regressor.predict([[v, a, s, n]])
-        return render_template('index.html', form=form, result=result, show=True)
-    return render_template('index.html', form=form, show=False)
+        v = form.v.data
+        a = form.a.data
+        s = form.s.data
+        n = form.n.data
+        result = regressor.predict([[float(v), float(a), float(s), float(n)]])
+        show = True
+        return redirect(url_for('index'))
+    return render_template('index.html', form=form, result=result, show=show)
 
 
 if __name__ == '__main__':
