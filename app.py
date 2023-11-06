@@ -7,18 +7,37 @@ import xgboost
 regressor = xgboost.XGBRegressor()
 
 
-def check_float(form, field):
+def validate_value(form, field):
     try:
         float(field.data)
     except ValueError:
         raise ValidationError('Not a valid input.')
+    else:
+        if field.name == "v":
+            if not (22 <= float(field.data) <= 36):
+                raise ValidationError(
+                    'Arc Voltage must be in range of (22, 36)')
+
+        if field.name == "a":
+            if not (250 <= float(field.data) <= 550):
+                raise ValidationError('Current must be in range of (250, 550)')
+
+        if field.name == "s":
+            if not (6 <= float(field.data) <= 18):
+                raise ValidationError(
+                    'Travel speed must be in range of (6, 18)')
+
+        if field.name == "n":
+            if not (20 <= float(field.data) <= 34):
+                raise ValidationError(
+                    'Nozzle to plate distance must be in range of (20, 34)')
 
 
 class MyForm(FlaskForm):
-    v = StringField('V', validators=[DataRequired(), check_float])
-    a = StringField('A', validators=[DataRequired(), check_float])
-    s = StringField('S', validators=[DataRequired(), check_float])
-    n = StringField('N', validators=[DataRequired(), check_float])
+    v = StringField('V', validators=[DataRequired(), validate_value])
+    a = StringField('A', validators=[DataRequired(), validate_value])
+    s = StringField('S', validators=[DataRequired(), validate_value])
+    n = StringField('N', validators=[DataRequired(), validate_value])
     submit = SubmitField('Predict')
 
 
