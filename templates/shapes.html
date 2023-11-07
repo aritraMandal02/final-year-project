@@ -1,5 +1,5 @@
-{% macro draw_weld_bead(height, width, penetration) %}
-<svg viewBox="0 0 100 70" xmlns="http://www.w3.org/2000/svg">
+{% macro weld_bead_svg() %}
+<svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
   <!-- Arrow Head -->
   <defs>
     <marker
@@ -18,47 +18,41 @@
   <path
     fill="#94a1a8"
     d="
-    M10,{{4/3*height}}
-    C15,0,{{5+width}},0,{{10+width}},{{4/3*height}}
-    Q{{10+width/2}},{{4/3*height+penetration*2}},10,{{4/3*height}}
+    M10,10
+    C15,0,45,0,50,10
+    Q30,60,10,10
     "
   ></path>
   <!-- Arrows -->
-  <!-- Width -->
-  <path d="M10,{{4/3*height+2}} L10,{{4/3*height+5+penetration}}" stroke="black" stroke-width="0.2"></path>
-  <path d="M{{10+width}},{{4/3*height+2}} L{{10+width}},{{4/3*height+5+penetration}}" stroke="black" stroke-width="0.2"></path>
+  <path d="M10,12 L10,40" stroke="black" stroke-width="0.2"></path>
+  <path d="M50,12 L50,40" stroke="black" stroke-width="0.2"></path>
   <path
-    d="M10,{{4/3*height+5+penetration}} L{{10+width}},{{4/3*height+5+penetration}}"
+    d="M10,40 L50,40"
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
     stroke="black"
     stroke-width="0.2"
   ></path>
-
-  <!-- Penetration -->
-  <path d="M{{12+width}},{{4/3*height}} L{{20+width}},{{4/3*height}}" stroke="black" stroke-width="0.2"></path>
-  <path d="M{{12+width/2}},{{4/3*height+penetration}} L{{20+width}},{{4/3*height+penetration}}" stroke="black" stroke-width="0.2"></path>
+  <path d="M52,10 L62,10" stroke="black" stroke-width="0.2"></path>
+  <path d="M32,35 L62,35" stroke="black" stroke-width="0.2"></path>
   <path
-    d="M{{20+width}},{{4/3*height}} L{{20+width}},{{4/3*height+penetration}}"
+    d="M62,10 L62,35"
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
     stroke="black"
     stroke-width="0.2"
   ></path>
-
-  <!-- Height -->
-  <path d="M{{12+width/2}},{{height/3}} L{{20+width}},{{height/3}}" stroke="black" stroke-width="0.2"></path>
+  <path d="M32,2.5 L62,2.5" stroke="black" stroke-width="0.2"></path>
   <path
-    d="M{{20+width}},{{height/3}} L{{20+width}},{{4/3*height}}"
+    d="M62,2.5 L62,10"
     marker-start="url(#arrow)"
     marker-end="url(#arrow)"
     stroke="black"
     stroke-width="0.2"
   ></path>
-
   <!-- Measurements Text -->
-  <text x="{{21+width}}" y="{{0.83*height}}" fill="black" font-size="2.5">{{'%.7f' % (height/4.5)|float}}</text>
-  <text x="{{6+width/2}}" y="{{4/3*height+7.5+penetration}}" fill="black" font-size="2.5">{{'%.7f' % (width/4.5)|float}}</text>
-  <text x="{{21+width}}" y="{{4/3*height+penetration/2}}" fill="black" font-size="2.5">{{'%.7f' % (penetration/4.5)|float}}</text>
+  <text x="63" y="6.75" fill="black" font-size="2.5">Height</text>
+  <text x="28" y="43" fill="black" font-size="2.5">Width</text>
+  <text x="63" y="22" fill="black" font-size="2.5">Penetration</text>
 </svg>
 {% endmacro %}
