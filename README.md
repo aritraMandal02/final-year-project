@@ -39,5 +39,7 @@
     </table>
     <p>All the outputs (Bead Height, Width and Penetration) are measured in mm.</p>
     <h3>Weld Bead Geometry</h3>
-    <img src="static/images/weld-bead.svg" style="background-color:FAFAFA"/>
+    <div style="background-color:white">
+        <img src="static/images/weld-bead.svg"/>
+    </div>
 </div>
