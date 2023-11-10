@@ -40,6 +40,7 @@
     <p>All the outputs (Bead Height, Width and Penetration) are measured in mm.</p>
     <h3>Weld Bead Geometry</h3>
     <!-- Weld Bead svg -->
+    <?xml>
     <svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <marker
@@ -95,4 +96,5 @@
         <text x="28" y="43" fill="black" font-size="2.5">Width</text>
         <text x="63" y="22" fill="black" font-size="2.5">Penetration</text>
     </svg>
+    </xml>
 </div>
