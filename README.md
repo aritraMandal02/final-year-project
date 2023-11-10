@@ -1,7 +1,6 @@
 # final-year-project
 
 <div>
-    <h1>About</h1>
     <p>
         With this piece of software, we are trying to predict Height, Width and Penetration of
         a Weld Bead using Arc Voltage, Current, Travel Speed and Nozzle to Plate Distance as
