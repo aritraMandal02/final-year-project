@@ -13,6 +13,5 @@ scipy
 threadpoolctl
 Werkzeug
 WTForms
-xgboost
 gunicorn
 python-dotenv
