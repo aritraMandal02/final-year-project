@@ -61,12 +61,12 @@ load_dotenv()
 app.secret_key = os.getenv('secret_key')
 show = False
 result = None
-v, a, s, n, model = None, None, None, None, None
+model, v, a, s, n = None, None, None, None, None
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global v, a, s, n, result, show, model
+    global model, v, a, s, n, result, show
     form = MyForm(model=model, v=v, a=a, s=s, n=n)
     if form.validate_on_submit():
         model = form.model.data
