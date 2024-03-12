@@ -1,10 +1,10 @@
 from flask import Flask, render_template, redirect, url_for
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField
+from wtforms import SubmitField, StringField, SelectField
 from wtforms.validators import DataRequired, ValidationError
-import xgboost
-
-regressor = xgboost.XGBRegressor()
+import joblib
+from dotenv import load_dotenv
+import os
 
 
 def validate_value(form, field):
@@ -34,6 +34,16 @@ def validate_value(form, field):
 
 
 class MyForm(FlaskForm):
+    model = SelectField(choices=['XGBoost',
+                                 'Linear Regression',
+                                 'Polynomial Regression',
+                                 'Decision Tree Regression',
+                                 'Random Forest Regression',
+                                 'Lasso Regression',
+                                 'Ridge Regression'
+                                 ],
+                        validators=[DataRequired()]
+                        )
     v = StringField('V', validators=[DataRequired(), validate_value])
     a = StringField('A', validators=[DataRequired(), validate_value])
     s = StringField('S', validators=[DataRequired(), validate_value])
@@ -41,25 +51,33 @@ class MyForm(FlaskForm):
     submit = SubmitField('Predict')
 
 
+def to_filename(name: str):
+    filename = 'model_' + name.lower().replace(' ', '_') + '.pkl'
+    return filename
+
+
 app = Flask(__name__)
-app.secret_key = 'A Secret Key'
-filename = 'finalized_model.sav'
-regressor.load_model(f'model/{filename}')
+load_dotenv()
+app.secret_key = os.getenv('secret_key')
 show = False
 result = None
-v, a, s, n = None, None, None, None
+v, a, s, n, model = None, None, None, None, None
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    global v, a, s, n, result, show
-    form = MyForm(v=v, a=a, s=s, n=n)
+    global v, a, s, n, result, show, model
+    form = MyForm(model=model, v=v, a=a, s=s, n=n)
     if form.validate_on_submit():
+        model = form.model.data
         v = form.v.data
         a = form.a.data
         s = form.s.data
         n = form.n.data
+        filename = to_filename(model)
+        regressor = joblib.load(f'model/saved/{filename}')
         result = regressor.predict([[float(v), float(a), float(s), float(n)]])
+        print(result[0][0])
         show = True
         return redirect(url_for('index'))
     return render_template('index.html', form=form, result=result, show=show)

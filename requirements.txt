@@ -15,3 +15,4 @@ Werkzeug
 WTForms
 xgboost
 gunicorn
+python-dotenv

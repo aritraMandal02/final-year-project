@@ -1,6 +1,10 @@
 {% macro make_form(form) %}
 <form class="mx-1" method="POST" action="/">
-  {{ form.csrf_token }} {% for field in form %}
+  {{ form.csrf_token }}
+  {% for field in form %}
+  {% if field.type == 'SelectField' %}
+  {{field(class="form-select")}}
+  {% endif %}
   {% if field.type in ['FloatField', 'StringField'] %}
   <div class="input-group my-3">
     {{ field.label(class='input-group-text') }} {{ field(size=20, class="form-control") }}
@@ -77,8 +81,8 @@
   ></path>
 
   <!-- Measurements Text -->
-  <text x="{{21+width}}" y="{{0.83*height}}" fill="black" font-size="2.5">{{'%.7f' % (height/4.5)|float}}</text>
-  <text x="{{6+width/2}}" y="{{4/3*height+7.5+penetration}}" fill="black" font-size="2.5">{{'%.7f' % (width/4.5)|float}}</text>
-  <text x="{{21+width}}" y="{{4/3*height+penetration/2}}" fill="black" font-size="2.5">{{'%.7f' % (penetration/4.5)|float}}</text>
+  <text x="{{21+width}}" y="{{0.83*height}}" fill="black" font-size="2.5">{{'%.7f' % (height/4.5)}}</text>
+  <text x="{{6+width/2}}" y="{{4/3*height+7.5+penetration}}" fill="black" font-size="2.5">{{'%.7f' % (width/4.5)}}</text>
+  <text x="{{21+width}}" y="{{4/3*height+penetration/2}}" fill="black" font-size="2.5">{{'%.7f' % (penetration/4.5)}}</text>
 </svg>
 {% endmacro %}

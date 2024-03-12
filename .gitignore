@@ -1,3 +1,4 @@
 venv
 model/data-welding.xlsx
 .vscode
+.env

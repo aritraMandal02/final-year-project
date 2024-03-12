@@ -21,9 +21,9 @@
           {{make_form(form)}} {% if show %}
           <h4 class="mt-4">Predicted Values of Weld Bead Geometry</h4>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><strong>Height: </strong>{{result[0][0]}}</li>
-            <li class="list-group-item"><strong>Width: </strong>{{result[0][1]}}</li>
-            <li class="list-group-item"><strong>Penetration: </strong>{{result[0][2]}}</li>
+            <li class="list-group-item"><strong>Height: </strong>{{'%.7f' % result[0][0]}}</li>
+            <li class="list-group-item"><strong>Width: </strong>{{'%.7f' % result[0][1]}}</li>
+            <li class="list-group-item"><strong>Penetration: </strong>{{'%.7f' % result[0][2]}}</li>
           </ul>
           {{draw_weld_bead(result[0][0]*4.5, result[0][1]*4.5, result[0][2]*4.5)}} {% endif %}
         </div>
@@ -69,27 +69,24 @@
             <p>All the outputs (Bead Height, Width and Penetration) are measured in mm.</p>
             <h3>Weld Bead Geometry</h3>
             <!-- Weld Bead svg -->
-            <img src="{{url_for('static', filename='images/weld-bead.svg')}}"/>
+            <img src="{{url_for('static', filename='images/weld-bead.svg')}}" />
           </div>
         </div>
       </div>
       <footer class="py-3 my-4">
-        <p class="text-center text-muted">© 2020 - '24 Batch | Mechanical Engineering | NIT Durgapur</p>
+        <p class="text-center text-muted">
+          © 2020 - '24 Batch | Mechanical Engineering | NIT Durgapur
+        </p>
       </footer>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"
     ></script>
   </body>
