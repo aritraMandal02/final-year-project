@@ -43,7 +43,8 @@ class Models:
         df_poly = pd.DataFrame(predicted, columns=[
                                'height', 'width', 'penetration'])
         df_poly.to_excel('model/data/polynomial_regression.xlsx', index=False)
-        joblib.dump(regressor, f'model/saved/model_polynomial_regression.pkl')
+        joblib.dump(poly, 'model/saved/model_polynomial_features.pkl')
+        joblib.dump(regressor, 'model/saved/model_polynomial_regression.pkl')
         return regressor
 
     def decision_tree(self):

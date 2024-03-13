@@ -76,12 +76,17 @@ def index():
         n = form.n.data
         filename = to_filename(model)
         regressor = joblib.load(f'model/saved/{filename}')
+        if filename.find('polynomial'):
+            poly = joblib.load('model/saved/model_polynomial_features.pkl')
+            result = regressor.predict(poly.fit_transform(
+                [[float(v), float(a), float(s), float(n)]]))
+            show = True
+            return redirect(url_for('index'))
         result = regressor.predict([[float(v), float(a), float(s), float(n)]])
-        print(result[0][0])
         show = True
         return redirect(url_for('index'))
     return render_template('index.html', form=form, result=result, show=show)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0', debug=True)
