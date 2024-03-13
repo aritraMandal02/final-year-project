@@ -33,10 +33,10 @@ class Models:
 
     def ploynomial_regression(self):
         poly = PolynomialFeatures(degree=3)
-        X_poly = poly.fit_transform(self.X_train)
-        poly.fit(X_poly, self.y_train)
+        X_poly = poly.fit_transform(self.X)
+        poly.fit(X_poly, self.Y)
         regressor = LinearRegression()
-        regressor.fit(X_poly, self.y_train)
+        regressor.fit(X_poly, self.Y)
         self.score = regressor.score(
             poly.fit_transform(self.X_test), self.y_test)
         predicted = regressor.predict(poly.fit_transform(self.X))

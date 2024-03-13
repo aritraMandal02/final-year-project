@@ -76,7 +76,7 @@ def index():
         n = form.n.data
         filename = to_filename(model)
         regressor = joblib.load(f'model/saved/{filename}')
-        if filename.find('polynomial'):
+        if 'polynomial' in filename:
             poly = joblib.load('model/saved/model_polynomial_features.pkl')
             result = regressor.predict(poly.fit_transform(
                 [[float(v), float(a), float(s), float(n)]]))
